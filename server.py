@@ -6,8 +6,15 @@ def make_tour():
 	tour = {
 		'id': 1,
 		'name': 'Test Tour',
-		'route': [
+		'waypoints': [
+			(5, 2),
+			(2, 3),
+			(1, 4),
+			(4, 4)
+		],
+		'landmarks': [
 			{
+				'name': 'A Place',
 				'description': 'This is a description of this place.',
 				'photos': ['photo1.jpg', 'photo2.jpg'],
 				'coordinate': (3, 4),
