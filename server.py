@@ -16,7 +16,7 @@ def make_tour():
 			{
 				'name': 'A Place',
 				'description': 'This is a description of this place.',
-				'photos': ['photo1.jpg', 'photo2.jpg'],
+				'photos': ['https://example.com/photo1.jpg', 'https://example.com/photo2.jpg'],
 				'coordinate': (3, 4),
 			}, {
 				'coordinate': (2, 3),
