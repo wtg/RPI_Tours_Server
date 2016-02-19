@@ -1,8 +1,15 @@
 import flask
 import psycopg2
 
+DB_URL = 'postgres://rpitours:rpitours@localhost:5432/rpitours'
+
 app = flask.Flask(__name__)
-db = psycopg2.connect('postgres://rpitours:rpitours@localhost:5432/rpitours')
+
+def get_db():
+	db = getattr(flask.g, 'database', None)
+	if db is None:
+		db = flask.g.database = psycopg2.connect(DB_URL)
+	return db
 
 def make_tour():
 	tour = {
@@ -37,6 +44,11 @@ def index():
 def tours():
 	tour_lst = [make_tour()]
 	return flask.jsonify(tours=tour_lst)
+
+@app.route('/dbtest')
+def dbtest():
+	get_db()
+	return flask.jsonify(success=True)
 
 if __name__ == '__main__':
 	app.run(debug=True)
