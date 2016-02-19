@@ -1,6 +1,8 @@
 import flask
+import psycopg2
 
 app = flask.Flask(__name__)
+db = psycopg2.connect('postgres://rpitours:rpitours@localhost:5432/rpitours')
 
 def make_tour():
 	tour = {
