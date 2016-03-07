@@ -66,7 +66,7 @@ def tours():
 
 	return flask.jsonify(tours=tour_lst)
 
-@app.route('/tours/create', methods=('POST',))
+@app.route('/tours', methods=('POST',))
 def tour_create():
 	tour = make_tour()
 
