@@ -16,9 +16,27 @@ def init_db():
 	db = psycopg2.connect(DB_URL)
 	cur = db.cursor()
 	cur.execute("""
+		CREATE TABLE IF NOT EXISTS tour_categories (
+			id serial PRIMARY KEY,
+			name text NOT NULL,
+			description text
+		);
 		CREATE TABLE IF NOT EXISTS tours (
 			id serial PRIMARY KEY,
-			tour json NOT NULL
+			tour json NOT NULL,
+			category_id integer REFERENCES tour_categories NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS waypoints (
+			id serial PRIMARY KEY,
+			coordinate point NOT NULL,
+			tour_id integer REFERENCES tours NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS landmarks (
+			id serial PRIMARY KEY,
+			name text NOT NULL,
+			description text,
+			coordinate point NOT NULL,
+			tour_id integer REFERENCES tours NOT NULL
 		);
 	""")
 	db.commit()
