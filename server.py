@@ -10,7 +10,7 @@ def index():
 
 @app.route('/tours')
 def tours():
-	tour_lst = []
+	tour_lst = models.get_all_tours()
 	return flask.jsonify(tours=tour_lst)
 
 @app.route('/dbtest')

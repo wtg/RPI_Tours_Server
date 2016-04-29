@@ -1,4 +1,5 @@
 import peewee
+from playhouse import shortcuts
 
 DB_INFO = {
 	'db': 'rpitours',
@@ -31,9 +32,6 @@ class Tour(BaseModel):
 	name = peewee.TextField()
 	category = peewee.ForeignKeyField(TourCategory, related_name='tours')
 
-	def json(self):
-		return
-
 class Waypoint(BaseModel):
 	latitude = peewee.FloatField()
 	longitude = peewee.FloatField()
@@ -45,6 +43,12 @@ class Landmark(BaseModel):
 	latitude = peewee.FloatField()
 	longitude = peewee.FloatField()
 	tour = peewee.ForeignKeyField(Tour, related_name='landmarks')
+
+def get_all_tours():
+	tours = []
+	for tour in Tour.select():
+		tours.append(shortcuts.model_to_dict(tour, backrefs=True))
+	return tours
 
 db.connect()
 db.create_tables([TourCategory, Tour, Waypoint, Landmark], safe=True)
